@@ -1,4 +1,4 @@
-package com.dodevjutsu.kata.birthdaygreetings;
+package com.dodevjutsu.kata.birthdaygreetings.core;
 
 import java.util.List;
 

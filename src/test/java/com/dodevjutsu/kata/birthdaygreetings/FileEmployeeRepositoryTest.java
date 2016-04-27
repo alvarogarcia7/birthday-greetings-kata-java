@@ -1,7 +1,8 @@
 package com.dodevjutsu.kata.birthdaygreetings;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.core.StringContains;
+import com.dodevjutsu.kata.birthdaygreetings.infrastructure.repositories.CannotReadEmployeesException;
+import com.dodevjutsu.kata.birthdaygreetings.core.OurDate;
+import com.dodevjutsu.kata.birthdaygreetings.infrastructure.repositories.FileEmployeeRepository;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,7 +10,6 @@ import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.*;
 
 public class FileEmployeeRepositoryTest {
 
@@ -30,7 +30,7 @@ public class FileEmployeeRepositoryTest {
         expected.expectMessage(containsString("cannot read file"));
         expected.expectMessage(containsString("non-existing.file"));
 
-        service.whoseBirthdayIsOn(ANY_DATE);
+        service.whoseBirthdayIs(ANY_DATE);
     }
 
     @Test
@@ -38,9 +38,9 @@ public class FileEmployeeRepositoryTest {
 
         FileEmployeeRepository service = new FileEmployeeRepository("src/test/resources/wrong_data__wrong-date-format.csv");
         expected.expect(CannotReadEmployeesException.class);
-        expected.expectMessage(containsString("cannot parse employee"));
+        expected.expectMessage(containsString("Badly formatted employee birth date in"));
 
-        service.whoseBirthdayIsOn(ANY_DATE);
+        service.whoseBirthdayIs(ANY_DATE);
     }
 
 }

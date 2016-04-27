@@ -1,4 +1,4 @@
-package com.dodevjutsu.kata.birthdaygreetings;
+package com.dodevjutsu.kata.birthdaygreetings.core;
 
 public class Greeting {
     private final String header;
@@ -10,9 +10,8 @@ public class Greeting {
     }
 
     public static Greeting greetingFor(Employee employee){
-        String content = String.format("Happy Birthday, dear %s!", employee.getFirstName());
+        String content = String.format("Happy Birthday, dear %s!", employee.firstName());
         String header = "Happy Birthday!";
-
         return new Greeting(header, content);
     }
 

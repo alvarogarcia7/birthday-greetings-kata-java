@@ -1,6 +1,4 @@
-package com.dodevjutsu.kata.birthdaygreetings;
-
-import java.text.ParseException;
+package com.dodevjutsu.kata.birthdaygreetings.core;
 
 public class Employee {
 
@@ -9,11 +7,11 @@ public class Employee {
     private String firstName;
     private String email;
 
-    public Employee(String firstName, String lastName, String birthDate,
-            String email) throws ParseException {
+    public Employee(String firstName, String lastName, OurDate birthDate,
+                    String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDate = new OurDate(birthDate);
+        this.birthDate = birthDate;
         this.email = email;
     }
 
@@ -21,18 +19,18 @@ public class Employee {
         return today.isSameDay(birthDate);
     }
 
-    public String getEmail() {
+    public String email() {
         return email;
     }
 
-    public String getFirstName() {
+    public String firstName() {
         return firstName;
     }
 
     @Override
     public String toString() {
         return "Employee " + firstName + " " + lastName + " <" + email
-                + "> born " + birthDate;
+            + "> born " + birthDate;
     }
 
     @Override
@@ -40,12 +38,12 @@ public class Employee {
         final int prime = 31;
         int result = 1;
         result = prime * result
-                + ((birthDate == null) ? 0 : birthDate.hashCode());
+            + ((birthDate == null) ? 0 : birthDate.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result
-                + ((firstName == null) ? 0 : firstName.hashCode());
+            + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result
-                + ((lastName == null) ? 0 : lastName.hashCode());
+            + ((lastName == null) ? 0 : lastName.hashCode());
         return result;
     }
 
@@ -80,5 +78,4 @@ public class Employee {
             return false;
         return true;
     }
-
 }

@@ -2,7 +2,7 @@ package com.dodevjutsu.kata.birthdaygreetings.test;
 
 import static org.junit.Assert.*;
 
-import com.dodevjutsu.kata.birthdaygreetings.OurDate;
+import com.dodevjutsu.kata.birthdaygreetings.core.OurDate;
 
 import org.junit.Test;
 

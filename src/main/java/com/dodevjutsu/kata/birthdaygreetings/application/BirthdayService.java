@@ -1,4 +1,10 @@
-package com.dodevjutsu.kata.birthdaygreetings;
+package com.dodevjutsu.kata.birthdaygreetings.application;
+
+import com.dodevjutsu.kata.birthdaygreetings.core.*;
+import com.dodevjutsu.kata.birthdaygreetings.infrastructure.greetings_senders.by_email.EmailConfiguration;
+import com.dodevjutsu.kata.birthdaygreetings.infrastructure.greetings_senders.by_email.EmailGreetingsSender;
+import com.dodevjutsu.kata.birthdaygreetings.infrastructure.greetings_senders.by_email.EmailSender;
+import com.dodevjutsu.kata.birthdaygreetings.infrastructure.repositories.FileEmployeeRepository;
 
 import java.util.List;
 
@@ -14,8 +20,8 @@ public class BirthdayService {
         this.greetingsSender = greetingsSender;
     }
 
-    public void sendGreetings(OurDate date) {
-        send(greetingMessagesFor(employeesHavingBirthdayOn(date)));
+    public void sendGreetings(OurDate today) {
+        send(greetingMessagesFor(employeesHavingBirthday(today)));
     }
 
     private List<GreetingMessage> greetingMessagesFor(List<Employee> employees) {
@@ -26,14 +32,15 @@ public class BirthdayService {
         greetingsSender.send(greetingMessages);
     }
 
-    private List<Employee> employeesHavingBirthdayOn(OurDate ourDate) {
-        return employeeRepository.whoseBirthdayIsOn(ourDate);
+    private List<Employee> employeesHavingBirthday(OurDate today) {
+        return employeeRepository.whoseBirthdayIs(today);
     }
 
     public static void main(String[] args) {
         BirthdayService service = new BirthdayService(
-                new FileEmployeeRepository("employee_data.txt"),
-                new EmailGreetingsSender("localhost", 25));
+            new FileEmployeeRepository("employee_data.txt"),
+            new EmailGreetingsSender(new EmailConfiguration("sender@here.com", "localhost", 25), new EmailSender())
+        );
         try {
             service.sendGreetings(new OurDate("2008/10/08"));
         } catch (Exception e) {
