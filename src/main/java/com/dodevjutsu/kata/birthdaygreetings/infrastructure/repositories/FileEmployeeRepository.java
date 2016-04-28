@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FileEmployeeRepository implements EmployeeRepository {
-    private final String fileName;
+    private final String path;
 
-    public FileEmployeeRepository(String fileName) {
-        this.fileName = fileName;
+    public FileEmployeeRepository(String path) {
+        this.path = path;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class FileEmployeeRepository implements EmployeeRepository {
     }
 
     private List<Employee> allEmployees() {
-        Lines lines = FileReader.readFileLinesAfterHeader(fileName);
-        return lines.extractEmployees();
+        EmployeesFile employeesFile = EmployeesFile.loadFrom(path);
+        return employeesFile.extractEmployees();
     }
 }

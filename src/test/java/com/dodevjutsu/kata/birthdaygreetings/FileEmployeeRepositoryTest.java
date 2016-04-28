@@ -27,7 +27,7 @@ public class FileEmployeeRepositoryTest {
 
         FileEmployeeRepository service = new FileEmployeeRepository("non-existing.file");
         expected.expect(CannotReadEmployeesException.class);
-        expected.expectMessage(containsString("cannot read file"));
+        expected.expectMessage(containsString("cannot loadFrom file"));
         expected.expectMessage(containsString("non-existing.file"));
 
         service.whoseBirthdayIs(ANY_DATE);
